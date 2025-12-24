@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spidey-Tech | Магазин Веб-Шутеров</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Rajdhani:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+    /* ==========================================================================
+           1. GLOBAL RESET & VARIABLES (ПЕРЕМЕННЫЕ)
+           ========================================================================== */
+        
+         :root {
+            /* Spidey Colors */
+            --spidey-red: #e23636;
+            --spidey-blue: #0064c6;
+            --spidey-black: #101010;
+            --spidey-dark-blue: #020b1c;
+            /* UI Colors */
+            --bg-light: #f5f5f5;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            /* Status Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            /* Admin Panel */
+            --admin-sidebar: #111827;
+            /* Fonts */
+            --font-comic: 'Bangers', cursive;
+            --font-tech: 'Rajdhani', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            /* Dimensions */
+            --container: 1440px;
+            --header-height: 90px;
+            --radius: 12px;
+            /* Shadows */
+            --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-glow: 0 0 20px rgba(226, 54, 54, 0.5);
+            --shadow-blue-glow: 0 0 20px rgba(0, 100, 198, 0.5);
+        }
+        /* Reset */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Scrollbar */
+        
+         ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: var(--spidey-red);
+            border-radius: 4px;
+        }
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: var(--spidey-blue);
+        }
+        /* Utility Classes */
+        
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .grid {
+            display: grid;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-red {
+            color: var(--spidey-red);
+        }
+        
+        .text-blue {
+            color: var(--spidey-blue);
+        }
+        /* Buttons */
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-family: var(--font-tech);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+        }
+        
+        .btn-primary {
+            background: var(--spidey-red);
+            color: white;
+            box-shadow: 0 5px 15px rgba(226, 54, 54, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: #b91c1c;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .btn-secondary {
+            background: var(--spidey-blue);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 100, 198, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            background: #004e9a;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-blue-glow);
+        }
+        
+        .btn-dark {
+            background: var(--spidey-black);
+            color: white;
+            border: 1px solid var(--text-gray);
+        }
+        
+        .btn-dark:hover {
+            background: #333;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--spidey-red);
+            color: var(--spidey-red);
+        }
+        
+        .btn-outline:hover {
+            background: var(--spidey-red);
+            color: white;
+        }
+        /* Animations */
+        
+        @keyframes spider-drop {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            50% {
+                transform: translateY(10px);
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px var(--spidey-red);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--spidey-red), 0 0 10px var(--spidey-blue);
+            }
+            100% {
+                box-shadow: 0 0 5px var(--spidey-red);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        /* ==========================================================================
+           2. HEADER & NAVIGATION
+           ========================================================================== */
+        
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(16, 16, 16, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--spidey-red);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-inner {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-comic);
+            font-size: 2.2rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--spidey-red);
+            font-size: 2.5rem;
+            animation: float 3s infinite;
+        }
+        
+        .logo span {
+            color: var(--spidey-blue);
+        }
+        
+        .nav-menu ul {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-link {
+            color: white;
+            font-family: var(--font-tech);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            position: relative;
+            transition: 0.3s;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--spidey-red);
+            transition: 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--spidey-red);
+        }
+        
+        .nav-link:hover::before {
+            width: 100%;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .icon-btn {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #222;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #333;
+        }
+        
+        .icon-btn:hover {
+            background: var(--spidey-red);
+            border-color: var(--spidey-red);
+            transform: rotate(15deg);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--spidey-blue);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #222;
+        }
+        
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background: var(--spidey-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .user-name {
+            color: white;
+            font-family: var(--font-tech);
+            font-weight: 600;
+        }
+        
+        .admin-tag {
+            background: var(--spidey-red);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        /* ==========================================================================
+           3. HERO SECTION (Spider-Background)
+           ========================================================================== */
+        
+        .hero {
+            margin-top: var(--header-height);
+            height: 700px;
+            background: url('https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=2574&auto=format&fit=crop') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: inset 0 -100px 100px var(--bg-light);
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            padding-left: 50px;
+            animation: spider-drop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .hero-subtitle {
+            font-family: var(--font-tech);
+            color: var(--spidey-blue);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hero-subtitle::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--spidey-blue);
+        }
+        
+        .hero h1 {
+            font-family: var(--font-comic);
+            font-size: 5rem;
+            line-height: 1;
+            color: white;
+            text-shadow: 4px 4px 0px var(--spidey-red);
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            color: #d1d5db;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        /* Web Decoration */
+        
+        .web-decoration {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: url('https://pngimg.com/uploads/spider_web/spider_web_PNG18.png') no-repeat top right;
+            background-size: contain;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        /* ==========================================================================
+           4. PAGE LAYOUT (Sidebar + Main)
+           ========================================================================== */
+        
+        .page-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            padding: 60px 0;
+            min-height: 100vh;
+        }
+        /* Sidebar Styles */
+        
+        .sidebar {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            border-top: 5px solid var(--spidey-red);
+        }
+        
+        .filter-header {
+            font-family: var(--font-tech);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .filter-group {
+            margin-bottom: 30px;
+        }
+        
+        .filter-label {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 15px;
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+            color: var(--spidey-dark-blue);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+        
+        .checkbox-item:hover {
+            color: var(--spidey-red);
+        }
+        
+        .checkbox-item input {
+            accent-color: var(--spidey-red);
+            width: 18px;
+            height: 18px;
+        }
+        
+        .price-range input {
+            width: 100%;
+            accent-color: var(--spidey-blue);
+        }
+        
+        .price-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--spidey-blue);
+            margin-top: 5px;
+        }
+        /* Tech Banner */
+        
+        .tech-banner {
+            background: #111;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+            border: 1px solid #333;
+        }
+        
+        .tech-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(226, 54, 54, 0.1) 10px, rgba(226, 54, 54, 0.1) 20px);
+        }
+        
+        .tech-banner h4 {
+            position: relative;
+            font-family: var(--font-tech);
+            font-size: 1.4rem;
+            color: var(--spidey-red);
+        }
+        
+        .tech-banner p {
+            position: relative;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin: 10px 0;
+        }
+        /* ==========================================================================
+           5. CATALOG GRID
+           ========================================================================== */
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-family: var(--font-comic);
+            font-size: 3rem;
+            color: var(--spidey-dark-blue);
+            line-height: 1;
+        }
+        
+        .section-title span {
+            color: var(--spidey-red);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            position: relative;
+            box-shadow: var(--shadow-card);
+            transition: 0.4s;
+            overflow: hidden;
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover .spec {
+            background: var(--spidey-blue);
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 100, 198, 0.4);
+        }
+        /* Контейнер картинки */
+        
+        .card-img-container {
+            width: 100%;
+            height: 220px;
+            /* Можно уменьшить высоту с 250px до 220px, чтобы было аккуратнее */
+            background: #f0f0f0;
+            overflow: hidden;
+            /* Обрезает все, что вылезает за границы */
+            position: relative;
+            border-radius: 12px 12px 0 0;
+            /* Скругление только сверху, если нужно */
+        }
+        /* Сама картинка */
+        /* Сама картинка */
+        
+        .card-img {
+            width: 100%;
+            /* Растянуть на всю ширину контейнера */
+            height: 100%;
+            /* Растянуть на всю высоту контейнера */
+            object-fit: cover;
+            /* ГЛАВНОЕ: Заполняет весь блок, сохраняя пропорции (как background-size: cover) */
+            object-position: center;
+            /* Центрирует картинку */
+            transition: 0.5s;
+            /* Для плавного зума при наведении */
+        }
+    .card-img {
+        width: 80%;
+        transition: 0.5s;
+        filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.3));
+    }
+    .product-card:hover .card-img {
+        transform: scale(1.1) rotate(-5deg);
+    }
+    .card-badges {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .badge {
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-family: var(--font-tech);
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .badge.new {
+        background: var(--spidey-blue);
+    }
+    .badge.hot {
+        background: var(--warning);
+        color: black;
+    }
+    .badge.sale {
+        background: var(--spidey-red);
+    }
+    .wishlist-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #ccc;
+        transition: 0.3s;
+    }
+    .wishlist-btn:hover {
+        color: var(--spidey-red);
+        transform: scale(1.1);
+    }
+    .card-info {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    .card-cat {
+        font-family: var(--font-tech);
+        color: var(--text-gray);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .card-title {
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin: 5px 0 10px;
+        line-height: 1.3;
+    }
+    .tech-specs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        /* Чтобы переносились, если длинные */
+    }
+    .spec {
+        background: rgba(0, 100, 198, 0.1);
+        /* Очень бледный синий */
+        
+        color: var(--spidey-blue);
+        /* Текст цвета Спайди */
+        
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        font-family: var(--font-tech);
+        /* Техно-шрифт */
+        
+        text-transform: uppercase;
+        border: 1px solid rgba(0, 100, 198, 0.2);
+        transition: 0.3s;
+    }
+    .card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    .price {
+        font-family: var(--font-tech);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--spidey-dark-blue);
+    }
+    .add-btn {
+        background: var(--spidey-dark-blue);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        cursor: pointer;
+        clip-path: polygon(20% 0, 100% 0, 100% 100%, 80% 100%, 0 100%, 0 0);
+    }
+    .add-btn:hover {
+        background: var(--spidey-red);
+    }
+    .admin-controls {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        gap: 10px;
+        z-index: 20;
+    }
+    .product-card.admin-mode .card-img-container {
+        opacity: 0.3;
+    }
+    .product-card.admin-mode .admin-controls {
+        display: flex;
+    }
+    /* ==========================================================================
+           6. SECTIONS (About, Contact)
+           ========================================================================== */
+    .tech-section {
+        background: #111;
+        color: white;
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+        margin: 60px 0;
+    }
+    .tech-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 30% 50%, rgba(0, 100, 198, 0.2), transparent 50%), radial-gradient(circle at 70% 50%, rgba(226, 54, 54, 0.1), transparent 50%);
+    }
+    .tech-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        position: relative;
+        z-index: 2;
+        align-items: center;
+    }
+    .tech-info h2 {
+        font-family: var(--font-comic);
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+    }
+    .tech-info p {
+        color: #aaa;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+    .feature-list li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1.1rem;
+        font-family: var(--font-tech);
+    }
+    .feature-list i {
+        color: var(--spidey-red);
+    }
+    /* Contact Form */
+    .contact-section {
+        background: white;
+        border-radius: var(--radius);
+        padding: 60px;
+        box-shadow: var(--shadow-card);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        margin-bottom: 80px;
+    }
+    .contact-text h2 {
+        font-family: var(--font-comic);
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: var(--spidey-dark-blue);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-family: var(--font-tech);
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 15px;
+        background: var(--bg-light);
+        border: 2px solid #eee;
+        border-radius: 8px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        transition: 0.3s;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+        border-color: var(--spidey-blue);
+        background: white;
+    }
+    .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    /* ==========================================================================
+           7. FOOTER
+           ========================================================================== */
+    .site-footer {
+        background: #0a0a0a;
+        color: #888;
+        padding-top: 80px;
+        border-top: 5px solid var(--spidey-blue);
+    }
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 50px;
+        padding-bottom: 60px;
+        border-bottom: 1px solid #222;
+    }
+    .footer-logo {
+        font-family: var(--font-comic);
+        font-size: 2rem;
+        color: white;
+        margin-bottom: 20px;
+        display: block;
+    }
+    .footer-desc {
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+    .footer-col h4 {
+        color: white;
+        font-family: var(--font-tech);
+        text-transform: uppercase;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+    .footer-links li {
+        margin-bottom: 12px;
+    }
+    .footer-links a {
+        color: #888;
+        transition: 0.3s;
+        font-size: 0.95rem;
+    }
+    .footer-links a:hover {
+        color: var(--spidey-red);
+        padding-left: 5px;
+    }
+    .copyright {
+        text-align: center;
+        padding: 25px;
+        background: black;
+        color: #555;
+        font-size: 0.9rem;
+    }
+    /* ==========================================================================
+           8. MODALS & UI ELEMENTS
+           ========================================================================== */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    .modal-overlay.active {
+        display: flex;
+        opacity: 1;
+    }
+    .modal-box {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        width: 500px;
+        max-width: 90%;
+        position: relative;
+        transform: scale(0.9);
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid var(--spidey-red);
+        box-shadow: 0 0 30px rgba(226, 54, 54, 0.2);
+    }
+    .modal-overlay.active .modal-box {
+        transform: scale(1);
+    }
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #999;
+    }
+    .modal-close:hover {
+        color: var(--spidey-red);
+    }
+    .modal-title {
+        font-family: var(--font-comic);
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--spidey-dark-blue);
+    }
+    /* Cart Items */
+    .cart-item {
+        display: flex;
+        gap: 15px;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+        align-items: center;
+    }
+    .cart-img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        background: #f5f5f5;
+        border-radius: 6px;
+    }
+    .cart-details h4 {
+        font-family: var(--font-tech);
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    .cart-remove {
+        color: var(--danger);
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    /* Toast */
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #111;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transform: translateY(100px);
+        transition: 0.5s;
+        z-index: 3000;
+        border-left: 4px solid var(--success);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        font-family: var(--font-tech);
+        letter-spacing: 0.5px;
+    }
+    .toast.active {
+        transform: translateY(0);
+    }
+    /* Admin Dashboard Styles */
+    .admin-stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .stat-box {
+        background: #f9fafb;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #e5e7eb;
+    }
+    .stat-num {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--spidey-blue);
+        display: block;
+    }
+    /* ==========================================================================
+           9. RESPONSIVE
+           ========================================================================== */
+    @media (max-width: 1024px) {
+        .page-wrapper {
+            grid-template-columns: 1fr;
+        }
+        
+        .sidebar {
+            display: none;
+        }
+        /* Mobile filter hidden for simplicity */
+        
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+    }
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+        
+        .hero {
+            text-align: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+        
+        .hero-content {
+            padding-left: 0;
+        }
+        
+        .tech-grid,
+        .contact-section {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .section-header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+        }
+    }
+    /* Добавьте это в конец вашего CSS внутри <style> */
+    .tech-image-box {
+        height: 400px;
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        /* Обрезает картинку по краям */
+        
+        box-shadow: 0 0 30px rgba(0, 100, 198, 0.4);
+        /* Синее свечение */
+        
+        border: 2px solid rgba(0, 100, 198, 0.5);
+        /* Тонкая рамка */
+        
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+    .tech-image-box:hover {
+        transform: scale(1.02);
+        /* Легкое увеличение при наведении */
+        
+        box-shadow: 0 0 40px rgba(226, 54, 54, 0.5);
+        /* Смена свечения на красное */
+        
+        border-color: rgba(226, 54, 54, 0.5);
+    }
+    .tech-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ключевое свойство: картинка не сплющится, а заполнит блок */
+        
+        display: block;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div id="toast" class="toast">
+        <i class="fas fa-spider" style="font-size: 1.5rem; color: var(--spidey-red);"></i>
+        <div>
+            <h4 id="toastTitle" style="margin-bottom: 2px;">Система</h4>
+            <span id="toastMsg" style="color: #aaa; font-size: 0.9rem;">Сообщение</span>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('loginModal')">&times;</span>
+            <h2 class="modal-title">Идентификация</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">Кодовое имя</label>
+                    <input type="text" id="loginUser" class="form-input" placeholder="Peter Parker">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Пароль доступа</label>
+                    <input type="password" id="loginPass" class="form-input" placeholder="*****">
+                </div>
+                <button type="submit" class="btn btn-secondary" style="width: 100%;">Войти в сеть</button>
+            </form>
+            <div class="text-center" style="margin-top: 20px; font-size: 0.9rem; color: #888;">
+                <p>Тест доступы:</p>
+                Admin: <b>admin / admin</b> <br> User: <b>user / 123</b>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal('cartModal')">&times;</span>
+            <h2 class="modal-title">Экипировка</h2>
+            <div id="cartContent" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+            </div>
+            <div class="flex" style="justify-content: space-between; font-size: 1.2rem; font-weight: 700; border-top: 2px solid #eee; padding-top: 15px; margin-bottom: 20px;">
+                <span>Итого:</span>
+                <span id="cartTotal" class="text-blue">$0</span>
+            </div>
+            <button onclick="checkout()" class="btn btn-primary" style="width: 100%;">Оформить заказ</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-box" style="width: 700px;">
+            <span class="modal-close" onclick="closeModal('adminModal')">&times;</span>
+            <h2 class="modal-title text-red">Stark Industries Panel</h2>
+
+            <div class="admin-stat-grid">
+                <div class="stat-box">
+                    <span class="stat-num" id="adminTotalProducts">0</span>
+                    <span>Товаров</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num text-red">12</span>
+                    <span>Заказов</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num">$45k</span>
+                    <span>Выручка</span>
+                </div>
+            </div>
+
+            <h4 style="font-family: var(--font-tech); margin-bottom: 15px; text-transform: uppercase;">Управление складом</h4>
+            <div style="background: #f9fafb; padding: 15px; border-radius: 8px; max-height: 250px; overflow-y: auto;">
+                <table style="width: 100%; text-align: left; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #ddd;">
+                            <th style="padding: 10px;">ID</th>
+                            <th>Название</th>
+                            <th>Цена</th>
+                            <th>Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <i class="fas fa-spider"></i> Spidey-
+                <span>Tech</span>
+            </a>
+
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#hero" class="nav-link">Главная</a></li>
+                    <li><a href="#catalog" class="nav-link">Каталог</a></li>
+                    <li><a href="#tech" class="nav-link">Технологии</a></li>
+                    <li><a href="#contact" class="nav-link">Связь</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="icon-btn" onclick="openModal('cartModal')">
+                    <i class="fas fa-shopping-bag"></i>
+                    <div class="cart-badge" id="headerCartCount">0</div>
+                </div>
+
+                <div id="authBtn">
+                    <button class="btn btn-outline" style="padding: 8px 20px; font-size: 0.9rem;" onclick="openModal('loginModal')">Войти</button>
+                </div>
+
+                <div id="userPanel" class="user-status hidden">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span class="user-name" id="userNameDisplay">User</span>
+                    <div class="icon-btn hidden" id="adminSettingsBtn" style="width: 35px; height: 35px;" onclick="openModal('adminModal')">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <i class="fas fa-sign-out-alt" style="cursor: pointer; color: #888; margin-left: 10px;" onclick="logout()"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container page-wrapper">
+
+        <aside class="sidebar">
+            <div class="filter-header">
+                ФИЛЬТРЫ <i class="fas fa-sliders-h text-red"></i>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Тип Устройства</span>
+                <label class="checkbox-item"><input type="checkbox" checked> Классические</label>
+                <label class="checkbox-item"><input type="checkbox" checked> Электрические</label>
+                <label class="checkbox-item"><input type="checkbox" checked> Симбиот</label>
+                <label class="checkbox-item"><input type="checkbox"> Жидкость</label>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Производитель</span>
+                <label class="checkbox-item"><input type="checkbox" checked> Parker Ind.</label>
+                <label class="checkbox-item"><input type="checkbox"> Stark Tech</label>
+                <label class="checkbox-item"><input type="checkbox"> Oscorp</label>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Цена</span>
+                <div class="price-range">
+                    <input type="range" min="100" max="5000">
+                    <div class="price-labels">
+                        <span>$100</span>
+                        <span>$5000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-banner">
+                <h4>WEB FLUID V.3</h4>
+                <p>Новая формула! Прочность увеличена на 200%.</p>
+                <button class="btn btn-outline" style="font-size: 0.8rem; padding: 5px 15px;">Подробнее</button>
+            </div>
+        </aside>
+
+        <main>
+
+            <section id="hero" class="hero">
+                <div class="hero-overlay"></div>
+                <div class="web-decoration"></div>
+                <div class="hero-content">
+                    <div class="hero-subtitle">Official Tech Partner</div>
+                    <h1>Upgrade Your <br><span class="text-red">Hero Gear</span></h1>
+                    <p>Эксклюзивные веб-шутеры, разработанные Питером Паркером. Одобрено Мстителями. Гарантия качества Stark Industries.</p>
+                    <div class="hero-buttons">
+                        <a href="#catalog" class="btn btn-primary">В каталог</a>
+                        <a href="#tech" class="btn btn-dark">Технологии</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="catalog">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Каталог <span>Tech</span></h2>
+                        <p style="color: #666; font-size: 1.1rem;">Новейшие разработки для защиты Нью-Йорка</p>
+                    </div>
+                    <div class="flex" style="gap: 10px;">
+                        <button class="btn btn-dark" style="padding: 8px 20px; font-size: 0.9rem;">Popular</button>
+                        <button class="btn btn-outline" style="padding: 8px 20px; font-size: 0.9rem;">New</button>
+                    </div>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                </div>
+            </section>
+
+            <section id="tech" class="tech-section">
+                <div class="container tech-grid">
+                    <div class="tech-info">
+                        <h2>Stark Tech <span class="text-blue">Inside</span></h2>
+                        <p>Наши устройства используют передовые нано-технологии и искусственный интеллект для максимальной точности стрельбы.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-wifi"></i> Синхронизация с маской</li>
+                            <li><i class="fas fa-battery-full"></i> 48 часов автономной работы</li>
+                            <li><i class="fas fa-bullseye"></i> Лазерное наведение
+                                <li><i class="fas fa-shield-alt"></i> Титановый корпус</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-image-box">
+                        <img src="https://avatars.mds.yandex.net/i?id=0f24718c2cb9ab0454dea07c630ab0d67045daef-10877393-images-thumbs&n=13" alt="Iron Spider Tech" class="tech-img">
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="contact-section">
+                <div class="contact-text">
+                    <h2>Связь с Лабораторией</h2>
+                    <p style="color: #666; font-size: 1.1rem; margin-bottom: 30px;">
+                        Есть идеи по улучшению формулы паутины? Или нужен индивидуальный заказ? Напишите нам.
+                    </p>
+                    <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+                        <div class="icon-btn" style="background: #eee; color: #333;"><i class="fab fa-discord"></i></div>
+                        <div class="icon-btn" style="background: #eee; color: #333;"><i class="fab fa-twitter"></i></div>
+                        <div class="icon-btn" style="background: #eee; color: #333;"><i class="fas fa-envelope"></i></div>
+                    </div>
+                </div>
+                <form onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label class="form-label">Ваше Имя</label>
+                        <input type="text" class="form-input" placeholder="Miles Morales">
+                    </div>
+                    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" placeholder="spider@ny.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Тема</label>
+                            <input type="text" class="form-input" placeholder="Заказ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Сообщение</label>
+                        <textarea class="form-textarea" placeholder="У меня закончились картриджи..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить</button>
+                </form>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <a href="#" class="footer-logo">Spidey-Tech</a>
+                <p class="footer-desc">Мы создаем будущее супергеройской экипировки. Безопасность Нью-Йорка — наш приоритет.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Магазин</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Веб-шутеры</a></li>
+                    <li><a href="#">Картриджи</a></li>
+                    <li><a href="#">Костюмы</a></li>
+                    <li><a href="#">Гаджеты</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Компания</h4>
+                <ul class="footer-links">
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Daily Bugle News</a></li>
+                    <li><a href="#">Вакансии (Oscorp)</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Помощь</h4>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Возврат</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Spidey-Tech Industries. Все права защищены. Не является официальным продуктом Marvel.
+        </div>
+    </footer>
+
+    <script>
+        /* --- MOCK DATABASE --- */
+        const productsDB = [{
+            id: 1,
+            title: "Classic Web-Shooters V1",
+            category: "Parker Ind.",
+            type: "classic", // <--- Важно для фильтра
+            price: 250,
+            image: "shooter.jpg.png", // Убедитесь, что файл называется именно так (с двойным расширением)
+            specs: ["Механические", "Стандартная сеть"],
+            badge: "HOT"
+        }, {
+            id: 2,
+            title: "Iron Spider Nanotech",
+            category: "Stark Tech",
+            type: "electric", // <--- Важно для фильтра
+            price: 1200,
+            image: "https://i.pinimg.com/originals/01/fc/6b/01fc6beba490f7fbcb2d78fe0c5d73ed.jpg",
+            specs: ["Нано-частицы", "Авто-наведение"],
+            badge: "NEW"
+        }, {
+            id: 3,
+            title: "Miles Morales Electric",
+            category: "Parker Ind.",
+            type: "electric", // <--- Важно для фильтра
+            price: 450,
+            image: "https://i.ytimg.com/vi/8JZrZZvUXDs/maxresdefault.jpg",
+            specs: ["Био-электричество", "Невидимость"],
+            badge: "SALE"
+        }, {
+            id: 4,
+            title: "Symbiote Black Edition",
+            category: "Unknown",
+            type: "symbiote", // <--- Важно для фильтра
+            price: 800,
+            image: "https://i.pinimg.com/originals/b2/85/c0/b285c07b35233b34da4112daeb9a9660.jpg",
+            specs: ["Органическая сеть", "Регенерация"],
+            badge: "RARE"
+        }, {
+            id: 5,
+            title: "Gwen Stacy Ghost Shooters",
+            category: "Earth-65",
+            type: "classic", // <--- Важно для фильтра
+            price: 350,
+            image: "https://i.pinimg.com/originals/ff/11/c1/ff11c1145b38ff3ca2968a665ee7cd44.jpg",
+            specs: ["Компактность", "Белый цвет"],
+            badge: "NEW"
+        }, {
+            id: 6,
+            title: "Web Fluid Refill Pack",
+            category: "Oscorp",
+            type: "fluid", // <--- Важно для фильтра
+            price: 50,
+            image: "oscorp.jpg.png", // Убедитесь, что файл называется именно так
+            specs: ["6 картриджей", "Высокая прочность"],
+            badge: "SALE"
+        }];
+
+        /* --- STATE --- */
+        let cart = [];
+        let currentUser = null; // 'admin' | 'user' | null
+
+        /* --- UTILS --- */
+        const openModal = (id) => {
+            document.getElementById(id).classList.add('active');
+        }
+        const closeModal = (id) => {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        const showToast = (msg, type = 'info') => {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+
+            toast.style.borderLeftColor = type === 'error' ? 'var(--danger)' : 'var(--success)';
+            const icon = toast.querySelector('i');
+            icon.style.color = type === 'error' ? 'var(--danger)' : 'var(--success)';
+
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 3000);
+        }
+
+        /* --- RENDERING --- */
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            productsDB.forEach(p => {
+                let badgeHTML = p.badge ? `<div class="badge ${p.badge.toLowerCase()}">${p.badge}</div>` : '';
+
+                // Specs Rendering
+                let specsHTML = p.specs.map(s => `<span class="spec">${s}</span>`).join('');
+
+                // Admin Controls
+                let adminControls = currentUser === 'admin' ?
+                    `<div class="admin-controls">
+                         <button class="btn btn-primary" onclick="deleteProduct(${p.id})">Del</button>
+                       </div>` :
+                    '';
+
+                let adminClass = currentUser === 'admin' ? 'admin-mode' : '';
+
+                const html = `
+                    <article class="product-card ${adminClass}">
+                        <div class="card-badges">
+                            ${badgeHTML}
+                        </div>
+                        <div class="wishlist-btn"><i class="fas fa-heart"></i></div>
+                        <div class="card-img-container">
+                            <img src="${p.image}" class="card-img" onerror="this.src='https://via.placeholder.com/300x300?text=Web+Shooter'">
+                            ${adminControls}
+                        </div>
+                        <div class="card-info">
+                            <span class="card-cat">${p.category}</span>
+                            <h3 class="card-title">${p.title}</h3>
+                            <div class="tech-specs">${specsHTML}</div>
+                            <div class="card-footer">
+                                <div class="price">$${p.price}</div>
+                                <div class="add-btn" onclick="addToCart(${p.id})">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                grid.innerHTML += html;
+            });
+
+            // Update Admin Stats
+            document.getElementById('adminTotalProducts').innerText = productsDB.length;
+        }
+
+        /* --- CART LOGIC --- */
+        function addToCart(id) {
+            if (!currentUser) {
+                openModal('loginModal');
+                showToast('Требуется авторизация!', 'error');
+                return;
+            }
+            const product = productsDB.find(p => p.id === id);
+            cart.push(product);
+            updateCartUI();
+            showToast(`${product.title} добавлен в экипировку!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('headerCartCount').innerText = cart.length;
+            const container = document.getElementById('cartContent');
+            const totalEl = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center" style="padding:20px; color:#888;">Экипировка не выбрана</p>';
+                totalEl.innerText = '$0';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image}" class="cart-img">
+                        <div style="flex-grow:1;">
+                            <h4>${item.title}</h4>
+                            <span class="text-blue font-bold">$${item.price}</span>
+                        </div>
+                        <i class="fas fa-trash cart-remove" onclick="removeFromCart(${index})"></i>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            totalEl.innerText = '$' + total;
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            showToast('Заказ отправлен в Stark Tower!');
+            cart = [];
+            updateCartUI();
+            closeModal('cartModal');
+        }
+
+        /* --- AUTH LOGIC --- */
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('loginUser').value;
+            const p = document.getElementById('loginPass').value;
+
+            if (u === 'admin' && p === 'admin') {
+                loginSuccess('admin');
+            } else if (u === 'user' && p === '123') {
+                loginSuccess('user');
+            } else {
+                showToast('Доступ запрещен! Неверный код.', 'error');
+            }
+        }
+
+        function loginSuccess(role) {
+            currentUser = role;
+            closeModal('loginModal');
+            document.getElementById('authBtn').classList.add('hidden');
+            document.getElementById('userPanel').classList.remove('hidden');
+            document.getElementById('userPanel').style.display = 'flex';
+            document.getElementById('userNameDisplay').innerText = role === 'admin' ? 'Tony Stark' : 'Peter Parker';
+
+            if (role === 'admin') {
+                document.getElementById('adminSettingsBtn').classList.remove('hidden');
+                updateAdminTable();
+            } else {
+                document.getElementById('adminSettingsBtn').classList.add('hidden');
+            }
+            renderProducts(); // Refresh for admin view
+            showToast(`Добро пожаловать, ${role}!`);
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('authBtn').classList.remove('hidden');
+            document.getElementById('userPanel').classList.add('hidden');
+            document.getElementById('userPanel').style.display = 'none';
+            cart = [];
+            updateCartUI();
+            renderProducts();
+            showToast('Выход из системы.');
+        }
+
+        /* --- ADMIN LOGIC --- */
+        function updateAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            let html = '';
+            productsDB.forEach(p => {
+                html += `
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px;">#${p.id}</td>
+                        <td>${p.title}</td>
+                        <td class="text-blue">$${p.price}</td>
+                        <td><button class="btn btn-outline" style="padding:2px 8px; font-size:0.7rem;" onclick="deleteProduct(${p.id})">Удалить</button></td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Удалить прототип из базы?')) {
+                const idx = productsDB.findIndex(p => p.id === id);
+                if (idx > -1) {
+                    productsDB.splice(idx, 1);
+                    renderProducts();
+                    updateAdminTable();
+                    showToast('Прототип уничтожен.');
+                }
+            }
+        }
+
+        /* --- FORM LOGIC --- */
+        function handleContact(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const original = btn.innerText;
+            btn.innerText = 'Отправка...';
+            setTimeout(() => {
+                btn.innerText = original;
+                e.target.reset();
+                showToast('Сообщение отправлено Питеру!');
+            }, 1500);
+        }
+
+        /* --- INIT --- */
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+    </script>
+</body>
+
+</html>
