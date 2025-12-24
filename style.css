@@ -1,0 +1,498 @@
+/* ===============================
+   CSS VARIABLES (DC THEME)
+================================ */
+:root
+{
+    --dc-dark-blue: #0d1b2a;
+    --dc-medium-blue: #1b263b;
+    --dc-bright-yellow: #ffd60a;
+    --dc-light-gray: #eaeaea;
+    --dc-black: #101010;
+    --dc-header-background-rgba: #1b263bc2;
+
+    --dc-light-blue: #324a66;       /* светлый синий для фонов/акцентов */
+    --dc-sky-blue: #5a7b9e;         /* мягкий голубой для карточек, ховеров */
+    --dc-pale-yellow: #fff3a0;      /* мягкий желтый для подсветок, бейджей */
+    --dc-grayish-blue: #aab9c9;     /* светлый серо-голубой для текста и подложек */
+
+    --white: #ffffff;
+    --text-gray: #9ca3af;
+
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+
+    --radius: 12px;
+
+    --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 20px rgba(255, 214, 10, 0.45);
+    --shadow-glow2: 0 0 20px rgba(13, 27, 42, 0.451);
+}
+
+/* ===============================
+   RESET & BASE
+================================ */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+body
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dc-dark-blue);
+    color: var(--dc-light-gray);
+}
+
+/* ===============================
+   CONTAINER
+================================ */
+.container
+{
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* ===============================
+   HEADER / NAV
+================================ */
+header
+{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--dc-header-background-rgba);
+    backdrop-filter: blur(8px);
+}
+
+nav
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 400px;
+}
+
+.logo
+{
+    color: var(--dc-bright-yellow);
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.logo:hover {
+    color: var(--dc-black);
+}
+
+nav ul
+{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 25px;
+}
+
+nav ul li a
+{
+    color: var(--dc-light-gray);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover
+{
+    color: var(--dc-bright-yellow);
+}
+
+.login
+{
+    background-color: var(--dc-bright-yellow);
+    color: var(--dc-dark-blue);
+    border: none;
+    padding: 8px 20px;
+    border-radius: var(--radius);
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.login:hover {
+    background-color: var(--dc-dark-blue);
+    color: var(--dc-bright-yellow);
+}
+
+/* ===============================
+   MAIN GRID
+================================ */
+main
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 80px;
+    padding: 60px 40px;
+}
+
+/* ===============================
+   HERO
+================================ */
+.bg-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: url("public/card-pic/batmanvflash.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: blur(5px);
+}
+
+.bg-image {
+    height: 700px;
+}
+
+.hero
+{
+    position: relative;
+    text-align: center;
+    padding: 160px;
+    border-radius: var(--radius);
+}
+
+.hero h1
+{
+    font-size: 56px;
+    color: var(--dc-bright-yellow);
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in;
+}
+
+.hero p
+{
+    max-width: 700px;
+    margin: 0 auto 30px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--dc-light-gray);
+}
+
+.CTA
+{
+    display: inline-block;
+    background-color: var(--dc-bright-yellow);
+    color: var(--dc-dark-blue);
+    padding: 20px 40px;
+    border-radius: var(--radius);
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.CTA:hover
+{
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow2);
+}
+
+/* Каталог товаров */
+
+#catalog h2 {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 50px;
+}
+
+.product-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+    min-height: 400px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 15px;
+    background: var(--dc-medium-blue);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+}
+
+.header {
+    margin: 0;
+}
+
+.header img {
+    width: 100%;
+    max-height: 250px;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    transition: transform 0.3s ease;
+}
+
+.header img:hover {
+    transform: scale(1.07);
+}
+
+.main {
+    margin: 10px 0 5px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.price {
+    background: var(--dc-pale-yellow);
+    color: var(--dc-dark-blue);
+    border-radius: 5px;
+    padding: 2px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    align-self: center;
+}
+
+.declaration {
+    margin: 0 0 15px 10px;
+}
+
+.declaration p {
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.declaration p span {
+    color: var(--dc-grayish-blue);
+}
+
+.tech-spec {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 15px 10px;
+    flex-wrap: wrap;
+    user-select: none;
+}
+
+.spec {
+    background: var(--dc-bright-yellow);
+    color: var(--dc-medium-blue);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--dc-medium-blue);
+    text-transform: uppercase;
+    border: 1px solid rgba(0, 100, 198, 0.2);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.spec:hover {
+    transform: scale(1.06);
+}
+
+.main,
+.tech-spec {
+    padding: 10px;
+}
+
+.cont-btn-buy {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: auto;
+}
+
+.btn-buy {
+    padding: 16px;
+    width: 90%;
+    background: var(--dc-dark-blue);
+    border: none;
+    border-radius: var(--radius);
+    color: var(--dc-bright-yellow);
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-buy:hover {
+    background: var(--dc-bright-yellow);
+    color: var(--dc-medium-blue);
+}
+
+.new-absolute {
+    position: relative;
+}
+
+.new {
+    position: absolute;
+    top: -25px;
+    left: 300px;
+    background: var(--warning);
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Отзывы */
+
+.feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feedback-card {
+    position: relative;
+    background: var(--dc-medium-blue);
+    color: var(--dc-light-gray);
+    border: 2px solid var(--dc-light-gray);
+    padding: 70px 70px 70px 140px;
+    height: 165px;
+}
+
+.feedback-card .author {
+    position: absolute;
+    top: 5px;
+    left: 160px;
+    font-size: 20px;
+}
+
+.feedback-card .batsymbol {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 5px;
+}
+
+.feedback-card .message {
+    margin-left: 200px;
+    font-size: 18px;
+}
+
+#contact {
+    background: var(--dc-medium-blue);
+    border-radius: var(--radius);
+    padding: 60px;
+    box-shadow: var(--shadow-card);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+#contact h4 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#contact p {
+    color: var(--dc-grayish-blue);
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+/* Форма обратной связи */
+
+.icon-github {
+    display: block;
+}
+
+.github-link {
+    display: inline-block;
+}
+
+.github-icon {
+    color: var(--dc-bright-yellow);
+    cursor: pointer;
+    transition: transform 0.6s ease, color 0.3s ease;
+}
+
+.github-link:hover .github-icon {
+    transform: rotate(360deg);
+    color: var(--dc-dark-blue);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.form-input, .form-textarea {
+    width: 100%;
+    padding: 15px;
+    background: var(--dc-medium-blue);
+    border: 2px solid var(--dc-bright-yellow);
+    border-radius: 8px;
+    font-size: 18px;
+    color: var(--dc-light-gray);
+    transition: 0.3s;
+}
+
+.form-textarea {
+    padding: 5px;
+}
+
+::placeholder {
+    color: var(--dc-grayish-blue);
+}
+
+.grid {
+    display: grid;
+}
+
+.btn-submit {
+    font-size: 18px;
+    background: none;
+    color: var(--dc-bright-yellow);
+    border: 2px solid var(--dc-bright-yellow);
+    border-radius: var(--radius);
+    padding: 15px;
+    transition: background 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.btn-submit:hover {
+    background: var(--dc-bright-yellow);
+    color: var(--dc-medium-blue);
+}
