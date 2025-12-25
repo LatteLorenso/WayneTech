@@ -18,10 +18,32 @@
                 <li><a href="#feedback">Отзывы</a></li>
                 <li><a href="#form">Связь с отделом</a></li>
                 <li><a href="#contacts">Контакты</a></li>
-                <li><button class="login">Войти</button></li>
+                <li class="container-user" style="display: none;">
+                    <img src="public/card-pic/avatar.jpg" class="avatar">
+                    <h4 class="user-name">Rachel Dawes</h4>
+                    <button class="logout" id="logoutBtn">Выйти</button>
+                </li>
+                <li><button class="login" id="loginBtn">Войти</button></li>
             </ul>
         </nav>
     </header>
+
+    <!-- Модальное окно -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Вход в систему</h2>
+            <form id="loginForm">
+                <label for="username">Логин</label>
+                <input type="text" id="username" placeholder="Введите логин" required>
+                
+                <label for="password">Пароль</label>
+                <input type="password" id="password" placeholder="Введите пароль" required>
+                
+                <button type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
     
     <div class="container">
         <main>
@@ -56,7 +78,7 @@
                             <p class="spec">Вес 300–400 г</p>
                         </article>
                         <article class="cont-btn-buy">
-                            <button class="btn-buy">В корзину</button>
+                            <button onclick="addToCart(1)" class="btn-buy">В корзину</button>
                         </article>
                     </article>
 
@@ -77,7 +99,7 @@
                             <p class="spec">Жаропрочный</p>
                         </article>
                         <article class="cont-btn-buy">
-                            <button class="btn-buy">В корзину</button>
+                            <button onclick="addToCart(2)" class="btn-buy">В корзину</button>
                         </article>
                     </article>
 
@@ -98,7 +120,7 @@
                             <p class="spec">Композитная броня, против пуль</p>
                         </article>
                         <article class="cont-btn-buy">
-                            <button class="btn-buy">В корзину</button>
+                            <button onclick="addToCart(3)" class="btn-buy">В корзину</button>
                         </article>
                     </article>
 
@@ -119,7 +141,7 @@
                             <p class="spec">Скрытное перемещение</p>
                         </article>
                         <article class="cont-btn-buy">
-                            <button class="btn-buy">В корзину</button>
+                            <button onclick="addToCart(4)" class="btn-buy">В корзину</button>
                         </article>
                     </article>
 
@@ -140,7 +162,7 @@
                             <p class="spec">Автоматическая катушка с блокировкой</p>
                         </article>
                         <article class="cont-btn-buy">
-                            <button class="btn-buy">В корзину</button>
+                            <button onclick="addToCart(5)" class="btn-buy">В корзину</button>
                         </article>
                     </article>
 
@@ -164,7 +186,8 @@
                             <p class="spec">Встроенные коммуникационные устройства, лёгкость и аэродинамика</p>
                         </article>
                         <article class="cont-btn-buy">
-                            <button class="btn-buy">В корзину</button>
+                            <button onclick="addToCart(6)" class="btn-buy">В корзину</button>
+                            <button onclick="addToCart(6)" class="change-delete">Удалить</button>
                         </article>
                     </article>
                 </div>
@@ -206,25 +229,27 @@
                 <form onsubmit="handleContact(event)" id="form">
                     <div class="form-group">
                         <label class="form-label">Ваше Имя</label>
-                        <input type="text" class="form-input" placeholder="Bruce Wayne">
+                        <input type="text" class="form-input" placeholder="Bruce Wayne" required>
                     </div>
                     <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div class="form-group">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-input" placeholder="waynetech@gc.com">
+                            <input type="email" class="form-input" placeholder="waynetech@gc.com" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Тема</label>
-                            <input type="text" class="form-input" placeholder="Заказ">
+                            <input type="text" class="form-input" placeholder="Заказ" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Сообщение</label>
-                        <textarea class="form-textarea" placeholder="..." rows="6"></textarea>
+                        <textarea class="form-textarea" placeholder="..." rows="6" required></textarea>
                         <button type="submit" class="btn-submit">Отправить</button>
                     </div>
                 </form>
             </section>
 
+<script src="script.js"></script>
+<script src="products.js"></script>
 </body>
 </html>
