@@ -20,7 +20,7 @@
 
     --success: #10b981;
     --warning: #f59e0b;
-    --danger: #ef4444;
+    --danger: #cc3b3b;
 
     --radius: 12px;
 
@@ -336,9 +336,10 @@ main
     padding: 10px;
 }
 
-.cont-btn-buy {
+.cont-btns {
     margin-top: 10px;
     display: flex;
+    gap: 15px;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
@@ -360,6 +361,24 @@ main
 .btn-buy:hover {
     background: var(--dc-bright-yellow);
     color: var(--dc-medium-blue);
+}
+
+.btn-delete {
+    display: none;
+    background: var(--danger);
+    color: var(--dc-light-gray);
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-delete:hover {
+    background: var(--dc-dark-blue);
+    color: var(--dc-bright-yellow);
 }
 
 .new-absolute {
@@ -514,12 +533,6 @@ main
     color: var(--dc-medium-blue);
 }
 
-
-.change-delete {
-    display: none;
-}
-
-
 .modal {
     display: none; /* скрыто по умолчанию */
     position: fixed;
@@ -574,7 +587,7 @@ main
 
 /* Контейнер для аккаунта */
 
-.container-acc {
+.container-user {
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -582,13 +595,13 @@ main
     align-items: center;
 }
 
-.container-acc .user-name {
+.container-user .user-name {
     font-size: 15px;
     font-weight: 500;
     align-self: center;
 }
 
-.container-acc .avatar {
+.container-user .avatar {
     width: 50px;
     height: 50px;
     align-items: center;

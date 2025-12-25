@@ -5,9 +5,10 @@
 // Получаем элементы
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
-const accountBtns = document.querySelector(".container-acc");
+const accountBtns = document.querySelector(".container-user");
 const modal = document.getElementById("loginModal");
 const closeBtn = document.querySelector(".close");
+const changeForAdmin = document.querySelector(".btn-delete");
 const loginForm = document.getElementById("loginForm");
 
 let currentUser = null;
@@ -61,6 +62,13 @@ function updateUIAfterLogin() {
     console.log(accountBtns); // должен показать DOM-элемент
     accountBtns.style.display = "flex"; // попробуй показать вручную
     userRoleSpan.textContent = currentUser.toUpperCase();
+
+    
+    if (currentUser = "admin") {
+        changeForAdmin.style.display = "inline-block";
+    } else if (currentUser = "user") {
+        changeForAdmin.style.display = "none";
+    }
 }
 
 // Логика выхода
